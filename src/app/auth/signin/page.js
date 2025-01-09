@@ -7,10 +7,15 @@ import Spinner from "@/components/shared/Spinner";
 import Link from "next/link";
 import { useSignInMutation } from "@/services/auth/authApi";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
 
 const Signin = () => {
     const router = useRouter();
     const [signin, { isLoading, data, error }] = useSignInMutation();
+    const [user, setUser] = useState({
+        email: "client@gmail.com",
+        password: "123123aA@",
+    });
 
     useEffect(() => {
         if (isLoading) {
@@ -35,8 +40,8 @@ const Signin = () => {
         e.preventDefault();
 
         signin({
-            email: e.target.email.value,
-            password: e.target.password.value,
+            email: user.email,
+            password: user.password,
         });
         e.target.reset();
     };
@@ -64,6 +69,10 @@ const Signin = () => {
                     <label htmlFor="email" className="flex flex-col gap-y-1">
                         <span className="text-sm">Enter Your Email</span>
                         <input
+                            value={user.email}
+                            onChange={(e) =>
+                                setUser({ ...user, email: e.target.value })
+                            }
                             type="email"
                             name="email"
                             id="email"
@@ -75,6 +84,10 @@ const Signin = () => {
                     <label htmlFor="password" className="flex flex-col gap-y-1">
                         <span className="text-sm">Enter Your Password</span>
                         <input
+                            value={user.password}
+                            onChange={(e) =>
+                                setUser({ ...user, password: e.target.value })
+                            }
                             type="password"
                             name="password"
                             id="password"

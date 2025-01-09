@@ -15,7 +15,7 @@ const Address = () => {
                 <div className="max-w-6xl mx-auto p-4 space-y-6">
                     <div
                         onClick={() => goBack()}
-                        className="flex items-center gap-2"
+                        className="w-fit flex items-center gap-2 hover:cursor-pointer hover:bg-gray-100 p-2 rounded-md"
                     >
                         <IoIosArrowBack /> Back
                     </div>

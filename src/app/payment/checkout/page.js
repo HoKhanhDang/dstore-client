@@ -9,14 +9,15 @@ import { generateComplexLargeRandomNumber } from "@/utils/helpers";
 import { useSelector } from "react-redux";
 import { IoIosArrowBack } from "react-icons/io";
 import useNavigate from "@/libs/useNavigate";
+import OrderSuccessScreen from "@/components/payment/SuccessfullyScreen";
 
 const CheckoutPage = () => {
     const { user } = useSelector((state) => state.auth);
-
+    const [isOrderCompleted, setIsOrderCompleted] = useState(false);
     const subtotal =
         user?.cart &&
         user?.cart.reduce((acc, item) => acc + item.product.price, 0);
-        
+
     const { goBack } = useNavigate();
     const [isShowQR, setIsShowQR] = useState(false);
 
@@ -27,7 +28,8 @@ const CheckoutPage = () => {
 
     const handleCheckout = async () => {
         if (paymentMethod === "COD") {
-            alert("Order placed successfully!");
+            //logic to add order to database
+            setIsOrderCompleted(true);
         } else {
             const rs = await fetch(
                 `${process.env.NEXT_PUBLIC_WEBHOOK_URL}/orders`,
@@ -47,23 +49,26 @@ const CheckoutPage = () => {
             setIsShowQR(true);
         }
     };
+
     return (
         <Main>
             <Container className="flex flex-col gap-y-12 py-8">
+                {isOrderCompleted && <OrderSuccessScreen />}
                 {isShowQR && (
                     <Bill
                         description={description}
                         total={subtotal}
                         setIsShowQR={setIsShowQR}
+                        setIsOrderCompleted={setIsOrderCompleted}
                     />
                 )}
 
-                <div className="flex flex-col md:flex-row p-8 space-x-6 bg-gray-100 h-screen">
+                <div className="flex flex-col md:flex-row p-8 space-x-6 bg-gray-100 h-fit">
                     {/* Left Section */}
                     <div className="w-full md:w-2/3 space-y-6">
                         <div
                             onClick={() => goBack()}
-                            className="flex items-center gap-2"
+                            className="w-fit flex items-center gap-2 hover:cursor-pointer hover:bg-white p-2 rounded-md"
                         >
                             <IoIosArrowBack /> Back
                         </div>

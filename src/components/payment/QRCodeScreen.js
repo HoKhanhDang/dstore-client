@@ -4,7 +4,7 @@ import QRCodeBill from "./QRCodeBill";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const Bill = ({ total, setIsShowQR, description }) => {
+const Bill = ({ total, setIsShowQR, description,setIsOrderCompleted }) => {
     const [qrCodeImage, setQrCodeImage] = useState(null);
 
     const handleClickExit = () => {
@@ -94,6 +94,7 @@ const Bill = ({ total, setIsShowQR, description }) => {
                 qrCodeImage={qrCodeImage}
                 totalAmount={total}
                 description={description}
+                setIsOrderCompleted={setIsOrderCompleted}
             />
         </div>
     );

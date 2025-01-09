@@ -2,8 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import OrderSuccessScreen from "./SuccessfullyScreen";
 
-const QRCodeBill = ({ qrCodeImage, totalAmount, description }) => {
+const QRCodeBill = ({
+    qrCodeImage,
+    totalAmount,
+    description,
+    setIsOrderCompleted,
+}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
     const { user } = useSelector((state) => state.auth);
@@ -41,7 +47,7 @@ const QRCodeBill = ({ qrCodeImage, totalAmount, description }) => {
     };
 
     const handleBackToHome = () => {
-        window.location.href = "/";
+        setIsOrderCompleted(true);
     };
     return (
         <div className="w-full md:w-1/3 bg-white p-6 shadow-md text-center space-y-4">
@@ -79,7 +85,7 @@ const QRCodeBill = ({ qrCodeImage, totalAmount, description }) => {
             {!isPaymentSuccess && (
                 <button
                     onClick={handleComfirmPayment}
-                    className="w-full py-3 bg-black text-white font-bold"
+                    className="w-full py-3 bg-black text-white font-bold cursor-pointer"
                 >
                     {isLoading ? (
                         <div className="w-6 h-6 rounded-full animate-spin border-2 border-solid border-white border-t-transparent mx-auto"></div>
@@ -89,17 +95,19 @@ const QRCodeBill = ({ qrCodeImage, totalAmount, description }) => {
                 </button>
             )}
             {isPaymentSuccess && (
-                <div className="group w-full h-full py-3 bg-black text-green-500 font-bold  relative">
-                    Payment success!
-                    <div className="absolute inset-0 hidden w-full h-full z-[50] bg-slate-50  items-center justify-center group-hover:block group-hover:animate-fill">
-                        <span
-                            onClick={handleBackToHome}
-                            className="w-full h-full flex items-center justify-center font-bold border border-black"
-                        >
-                            Go back to the website
-                        </span>
+                <>
+                    <div className="group w-full h-full py-3 bg-black text-green-500 font-bold  relative cursor-pointer">
+                        Payment success!
+                        <div className="absolute inset-0 hidden w-full h-full z-[50] bg-slate-50  items-center justify-center group-hover:block group-hover:animate-fill">
+                            <span
+                                onClick={handleBackToHome}
+                                className="w-full h-full flex items-center justify-center font-bold border border-black"
+                            >
+                                Go back to the website
+                            </span>
+                        </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

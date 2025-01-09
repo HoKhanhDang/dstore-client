@@ -10,26 +10,26 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Young Serif", serif;
+    font-family: "Young Serif", serif;
 }
 
 @layer base {
-  html {
-    font-family: "Poppins", sans-serif;
-  }
+    html {
+        font-family: "Poppins", sans-serif;
+    }
 }
 
 p,
 span {
-  @apply text-slate-500;
+    @apply text-slate-500;
 }
 
 input {
-  @apply focus:ring-black focus:border-black focus:outline-black;
+    @apply focus:ring-black focus:border-black focus:outline-black;
 }
 
 ::selection {
-  @apply bg-black text-white;
+    @apply bg-black text-white;
 }
 
 [type="text"],
@@ -38,37 +38,78 @@ input {
 [type="number"],
 [type="tel"],
 [type="search"] {
-  @apply form-input rounded text-sm;
+    @apply form-input rounded text-sm;
 }
 
 input,
 textarea,
 select {
-  @apply focus:!ring-0 focus:!outline-0 focus:!outline-offset-0 focus:!border-[#6fd1f9];
+    @apply focus:!ring-0 focus:!outline-0 focus:!outline-offset-0 focus:!border-[#6fd1f9];
 }
 
 textarea {
-  @apply form-textarea rounded text-sm resize-none;
+    @apply form-textarea rounded text-sm resize-none;
 }
 
 select {
-  @apply form-select rounded text-sm resize-none;
+    @apply form-select rounded text-sm resize-none;
 }
 
-
 @keyframes fillFromLeft {
-  0% {
-    background-size: 0% 100%;
-  }
-  100% {
-    background-size: 100% 100%;
-  }
+    0% {
+        background-size: 0% 100%;
+    }
+    100% {
+        background-size: 100% 100%;
+    }
 }
 
 .group-hover:animate-fill {
-  background-image: linear-gradient(to right, #d1d5db, #f3f4f6);
-  background-size: 0% 100%;
-  background-repeat: no-repeat;
-  animation: fillFromLeft 0.5s forwards;
+    background-image: linear-gradient(to right, #d1d5db, #f3f4f6);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    animation: fillFromLeft 0.5s forwards;
 }
 
+@keyframes explode {
+    0% {
+        transform: scale(0.1);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.firework {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #ff6b6b 40%, transparent 60%);
+    border-radius: 50%;
+    animation: explode 1.5s ease-out infinite;
+    transform-origin: center;
+}
+
+.firework-delay-1 {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #ffa502 40%, transparent 60%);
+    border-radius: 50%;
+    animation: explode 1.5s ease-out infinite;
+    animation-delay: 0.3s;
+    transform-origin: center;
+}
+
+.firework-delay-2 {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #70a1ff 40%, transparent 60%);
+    border-radius: 50%;
+    animation: explode 1.5s ease-out infinite;
+    animation-delay: 0.6s;
+    transform-origin: center;
+}
